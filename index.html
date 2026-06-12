@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Days until Fable 5 departs Claude subscriptions</title>
+<meta name="description" content="Countdown to June 23, 2026, the day Claude Fable 5 leaves Pro, Max, Team, and Enterprise subscription plans.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --housing: #15171b;
+    --flap-top: #23262c;
+    --flap-bottom: #1b1e23;
+    --ink: #f4f1e8;
+    --amber: #ffb52e;
+    --dim: #7a7e86;
+    --seam: rgba(0, 0, 0, 0.55);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: var(--housing);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+  }
+
+  /* ── Board header strip ───────────────────────────── */
+  .strip {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.9rem clamp(1rem, 4vw, 3rem);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    font-family: "Oswald", sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-size: clamp(0.6rem, 1.6vw, 0.8rem);
+    color: var(--amber);
+  }
+  .strip .right { color: var(--dim); letter-spacing: 0.18em; }
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 1rem 2rem;
+    width: 100%;
+  }
+
+  /* ── Giant split-flap day cells ───────────────────── */
+  .days-row {
+    display: flex;
+    gap: clamp(0.4rem, 1.5vw, 1.2rem);
+    justify-content: center;
+  }
+  .cell {
+    position: relative;
+    font-family: "Oswald", sans-serif;
+    font-weight: 600;
+    font-size: clamp(7rem, 34vw, 23rem);
+    line-height: 1.04;
+    width: 0.72em;
+    color: var(--ink);
+    background: linear-gradient(var(--flap-top), var(--flap-bottom));
+    border-radius: 0.045em;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 0.04em 0.12em rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .cell::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    top: 50%;
+    height: 2px;
+    margin-top: -1px;
+    background: var(--seam);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+  .cell::before {
+    content: "";
+    position: absolute;
+    top: 50%; bottom: 0;
+    left: 0; right: 0;
+    background: rgba(0, 0, 0, 0.18);
+  }
+
+  .days-label {
+    margin-top: 1.6rem;
+    font-family: "Oswald", sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.32em;
+    font-size: clamp(0.75rem, 2.4vw, 1.15rem);
+    color: var(--ink);
+  }
+
+  /* ── Departures board rows ────────────────────────── */
+  .board {
+    margin-top: 3rem;
+    width: min(34rem, 92vw);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: clamp(0.72rem, 2vw, 0.92rem);
+    text-align: left;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+  }
+  .board .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 0.62rem 0.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  }
+  .board .k {
+    color: var(--amber);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .board .v {
+    color: var(--ink);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: right;
+  }
+  .board .v.status-ok { color: var(--amber); }
+
+  /* ── Live flap clock ──────────────────────────────── */
+  .clock {
+    margin-top: 2.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: clamp(0.65rem, 1.8vw, 0.85rem);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dim);
+  }
+  .clock .flaps { display: flex; gap: 3px; }
+  .clock .fcell {
+    position: relative;
+    font-family: "Oswald", sans-serif;
+    font-weight: 500;
+    font-size: 1.25em;
+    width: 1.5ch;
+    padding: 0.18em 0;
+    text-align: center;
+    color: var(--ink);
+    background: linear-gradient(var(--flap-top), var(--flap-bottom));
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .clock .fcell::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 50%;
+    height: 1px;
+    background: var(--seam);
+  }
+  .clock .fsep { color: var(--dim); font-size: 1.1em; }
+  @keyframes flutter {
+    0%   { transform: scaleY(1);    filter: brightness(1); }
+    45%  { transform: scaleY(0.12); filter: brightness(0.55); }
+    100% { transform: scaleY(1);    filter: brightness(1); }
+  }
+  .fcell.tick, .cell.tick { animation: flutter 180ms ease-in-out; }
+  @media (prefers-reduced-motion: reduce) {
+    .fcell.tick, .cell.tick { animation: none; }
+  }
+
+  .tz {
+    margin-top: 0.9rem;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: clamp(0.6rem, 1.5vw, 0.75rem);
+    letter-spacing: 0.1em;
+    color: var(--dim);
+  }
+
+  footer {
+    padding: 1.6rem 1rem 2.2rem;
+    font-size: clamp(0.72rem, 1.7vw, 0.85rem);
+    color: var(--dim);
+    max-width: 38rem;
+    line-height: 1.65;
+    text-align: center;
+  }
+  footer a {
+    color: var(--amber);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 181, 46, 0.35);
+  }
+  footer a:hover, footer a:focus-visible { border-bottom-color: var(--amber); }
+  footer .credit {
+    margin-top: 1.1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.92em;
+    letter-spacing: 0.06em;
+  }
+  a:focus-visible, .strip:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+</style>
+</head>
+<body>
+  <header class="strip">
+    <span>Departures &middot; Claude subscription plans</span>
+    <span class="right" id="strip-clock"></span>
+  </header>
+
+  <main>
+    <div class="days-row" id="days" aria-live="polite"></div>
+    <div class="days-label" id="days-label">days until departure</div>
+
+    <div class="board" role="table" aria-label="Departure details">
+      <div class="row" role="row"><span class="k">Flight</span><span class="v">Claude Fable 5</span></div>
+      <div class="row" role="row"><span class="k">Departs</span><span class="v">23 Jun 2026 &middot; 00:00 local</span></div>
+      <div class="row" role="row"><span class="k">Destination</span><span class="v">Usage credits</span></div>
+      <div class="row" role="row"><span class="k">Return</span><span class="v">When capacity allows</span></div>
+      <div class="row" role="row"><span class="k">Status</span><span class="v status-ok" id="status">On time</span></div>
+    </div>
+
+    <div class="clock" id="clock-wrap">
+      <span>Departs in</span>
+      <span class="flaps" id="g-days"></span>
+      <span class="fsep">&nbsp;</span>
+      <span class="flaps" id="g-h"></span>
+      <span class="fsep">:</span>
+      <span class="flaps" id="g-m"></span>
+      <span class="fsep">:</span>
+      <span class="flaps" id="g-s"></span>
+    </div>
+    <div class="tz" id="tz"></div>
+  </main>
+
+  <footer>
+    Claude Fable 5 is included with Pro, Max, Team, and Enterprise plans through June 22, 2026.
+    From June 23 it needs usage credits. Anthropic says it will return to subscription plans once
+    there is enough capacity. <a href="https://www.anthropic.com/news/claude-fable-5-mythos-5" target="_blank" rel="noopener">Read the announcement</a>.
+    <div class="credit">
+      Made with love by Engin Diri &middot;
+      <a href="https://x.com/_ediri" target="_blank" rel="noopener">X (_ediri)</a> &middot;
+      <a href="https://www.linkedin.com/in/engin-diri/" target="_blank" rel="noopener">LinkedIn (engin-diri)</a>
+    </div>
+  </footer>
+
+<script>
+  // Departure moment: start of June 23, 2026 in the viewer's local timezone.
+  const REMOVAL = new Date(2026, 5, 23, 0, 0, 0);
+  const DAY = 86400000;
+  const elDays = document.getElementById('days');
+  const elLabel = document.getElementById('days-label');
+  const elStatus = document.getElementById('status');
+  const elClockWrap = document.getElementById('clock-wrap');
+  const gDays = document.getElementById('g-days');
+  const gH = document.getElementById('g-h');
+  const gM = document.getElementById('g-m');
+  const gS = document.getElementById('g-s');
+  const elTz = document.getElementById('tz');
+  const elStrip = document.getElementById('strip-clock');
+
+  const pad = n => String(n).padStart(2, '0');
+
+  function setCells(container, text, cellClass) {
+    const chars = String(text).split('');
+    const cells = container.children;
+    if (cells.length !== chars.length) {
+      container.innerHTML = '';
+      for (const ch of chars) {
+        const c = document.createElement('span');
+        c.className = cellClass;
+        c.textContent = ch;
+        container.appendChild(c);
+      }
+      return;
+    }
+    chars.forEach((ch, i) => {
+      const c = cells[i];
+      if (c.textContent !== ch) {
+        c.textContent = ch;
+        c.classList.remove('tick');
+        void c.offsetWidth;
+        c.classList.add('tick');
+      }
+    });
+  }
+
+  function render() {
+    const now = new Date();
+    const ms = REMOVAL - now;
+
+    elStrip.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    if (ms <= 0) {
+      setCells(elDays, '0', 'cell');
+      elLabel.textContent = 'Fable 5 has departed';
+      elStatus.textContent = 'Departed';
+      elStatus.classList.remove('status-ok');
+      elClockWrap.style.display = 'none';
+      elTz.textContent = 'It now needs usage credits.';
+      return;
+    }
+
+    const days = Math.ceil(ms / DAY);
+    setCells(elDays, days, 'cell');
+    elLabel.textContent = days === 1 ? 'day until departure' : 'days until departure';
+
+    const h = Math.floor((ms % DAY) / 3600000);
+    const m = Math.floor((ms % 3600000) / 60000);
+    const s = Math.floor((ms % 60000) / 1000);
+    const remDays = days - 1;
+    setCells(gDays, remDays + 'd', 'fcell');
+    setCells(gH, pad(h), 'fcell');
+    setCells(gM, pad(m), 'fcell');
+    setCells(gS, pad(s), 'fcell');
+
+    let tzName = '';
+    try { tzName = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+    elTz.textContent = `All times local${tzName ? ' · ' + tzName : ''}`;
+  }
+
+  render();
+  setInterval(render, 1000);
+</script>
+</body>
+</html>
