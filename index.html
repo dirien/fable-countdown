@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Days until Fable 5 departs Claude subscriptions</title>
-<meta name="description" content="Countdown to June 23, 2026, the day Claude Fable 5 leaves Pro, Max, Team, and Enterprise subscription plans.">
+<title>Claude Fable 5 &mdash; cleared to return</title>
+<meta name="description" content="Countdown to July 1, 2026: U.S. export controls on Claude Fable 5 were lifted June 30, and Fable 5 returns globally to Pro, Max, Team, and select Enterprise plans — free up to 50% of weekly limits through July 7, then usage credits.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&display=swap" rel="stylesheet">
@@ -15,7 +15,8 @@
     --flap-bottom: #1b1e23;
     --ink: #f4f1e8;
     --amber: #ffb52e;
-    --dim: #7a7e86;
+    --go: #34d17d;
+    --dim: #8a8e96;
     --seam: rgba(0, 0, 0, 0.55);
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -45,7 +46,7 @@
     letter-spacing: 0.28em;
     text-transform: uppercase;
     font-size: clamp(0.6rem, 1.6vw, 0.8rem);
-    color: var(--amber);
+    color: var(--go);
   }
   .strip .right { color: var(--dim); letter-spacing: 0.18em; }
 
@@ -112,7 +113,7 @@
     color: var(--ink);
   }
 
-  /* ── Departures board rows ────────────────────────── */
+  /* ── Arrivals board rows ──────────────────────────── */
   .board {
     margin-top: 3rem;
     width: min(34rem, 92vw);
@@ -140,6 +141,7 @@
     text-transform: uppercase;
     text-align: right;
   }
+  .board .v.status-go { color: var(--go); }
   .board .v.status-ok { color: var(--amber); }
 
   /* ── Live flap clock ──────────────────────────────── */
@@ -217,28 +219,80 @@
     letter-spacing: 0.06em;
   }
   a:focus-visible, .strip:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+
+  /* ── "Cleared" rubber stamp (export controls lifted) ─ */
+  .hero { position: relative; display: inline-block; }
+  body.is-cleared .days-row { filter: brightness(0.6) saturate(0.85); }
+
+  .stamp {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) rotate(-11deg);
+    z-index: 5;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.05em;
+    padding: 0.16em 0.46em 0.2em;
+    pointer-events: none;
+    white-space: nowrap;
+    color: var(--go);
+    border: 0.13em solid currentColor;
+    border-radius: 0.12em;
+    box-shadow: inset 0 0 0 0.05em currentColor;
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    opacity: 1;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 0.55em rgba(52, 209, 125, 0.25));
+    /* worn-ink distress: fractal-noise alpha mask punches speckle holes */
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='r'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='2' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1.35 1.2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23r)'/%3E%3C/svg%3E");
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='r'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='2' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -1.35 1.2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23r)'/%3E%3C/svg%3E");
+    -webkit-mask-size: 300px 300px; mask-size: 300px 300px;
+    -webkit-mask-repeat: repeat;    mask-repeat: repeat;
+  }
+  body.is-cleared .stamp { display: flex; animation: stampIn 440ms cubic-bezier(.2, .85, .25, 1) both; }
+  .stamp .lead { font-size: clamp(0.5rem, 1.5vw, 0.95rem); font-weight: 500; letter-spacing: 0.26em; }
+  .stamp .word { font-size: clamp(2.7rem, 13.5vw, 7.6rem); font-weight: 600; line-height: 0.9; letter-spacing: 0.05em; }
+  .stamp .sub  { font-size: clamp(0.5rem, 1.5vw, 0.9rem);  font-weight: 500; letter-spacing: 0.16em; }
+
+  @keyframes stampIn {
+    0%   { opacity: 0; transform: translate(-50%, -50%) rotate(-11deg) scale(1.9); }
+    55%  { opacity: 1; transform: translate(-50%, -50%) rotate(-11deg) scale(0.9); }
+    100% { opacity: 1; transform: translate(-50%, -50%) rotate(-11deg) scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    body.is-cleared .stamp { animation: none; }
+  }
 </style>
 </head>
 <body>
   <header class="strip">
-    <span>Departures &middot; Claude subscription plans</span>
+    <span>Arrivals &middot; Claude subscription plans</span>
     <span class="right" id="strip-clock"></span>
   </header>
 
   <main>
-    <div class="days-row" id="days" aria-live="polite"></div>
-    <div class="days-label" id="days-label">days until departure</div>
+    <div class="hero">
+      <div class="days-row" id="days" aria-live="polite"></div>
+      <div class="stamp" id="stamp" role="img" aria-label="Cleared: U.S. export controls on Fable 5 lifted 30 June 2026; returns 1 July 2026">
+        <span class="lead">Export controls lifted</span>
+        <span class="word">Cleared</span>
+        <span class="sub">30 Jun 2026 &middot; returns 01 Jul</span>
+      </div>
+    </div>
+    <div class="days-label" id="days-label">days until Fable 5 returns</div>
 
-    <div class="board" role="table" aria-label="Departure details">
-      <div class="row" role="row"><span class="k">Flight</span><span class="v">Claude Fable 5</span></div>
-      <div class="row" role="row"><span class="k">Departs</span><span class="v">23 Jun 2026 &middot; 00:00 local</span></div>
-      <div class="row" role="row"><span class="k">Destination</span><span class="v">Usage credits</span></div>
-      <div class="row" role="row"><span class="k">Return</span><span class="v">When capacity allows</span></div>
-      <div class="row" role="row"><span class="k">Status</span><span class="v status-ok" id="status">On time</span></div>
+    <div class="board" role="table" aria-label="Return details">
+      <div class="row" role="row"><span class="k" role="rowheader">Flight</span><span class="v" role="cell">Claude Fable 5</span></div>
+      <div class="row" role="row"><span class="k" role="rowheader">Returns</span><span class="v" role="cell">01 Jul 2026 &middot; 00:00 local</span></div>
+      <div class="row" role="row"><span class="k" role="rowheader">Cleared</span><span class="v" role="cell">30 Jun 2026 &middot; controls lifted</span></div>
+      <div class="row" role="row"><span class="k" role="rowheader">Allowance</span><span class="v" role="cell" id="allowance">50% of weekly limits &middot; to 07 Jul</span></div>
+      <div class="row" role="row"><span class="k" role="rowheader">Status</span><span class="v status-go" role="cell" id="status">Cleared for return</span></div>
     </div>
 
     <div class="clock" id="clock-wrap">
-      <span>Departs in</span>
+      <span id="clock-label">Returns in</span>
       <span class="flaps" id="g-days"></span>
       <span class="fsep">&nbsp;</span>
       <span class="flaps" id="g-h"></span>
@@ -251,9 +305,17 @@
   </main>
 
   <footer>
-    Claude Fable 5 is included with Pro, Max, Team, and Enterprise plans through June 22, 2026.
-    From June 23 it needs usage credits. Anthropic says it will return to subscription plans once
-    there is enough capacity. <a href="https://www.anthropic.com/news/claude-fable-5-mythos-5" target="_blank" rel="noopener">Read the announcement</a>.
+    On June 12, 2026 a U.S. export-control directive grounded Claude Fable 5 and Mythos 5
+    worldwide. On June 30 the controls were lifted, and on July 1 Fable 5 returns globally
+    across all platforms &mdash; included for up to 50% of weekly usage limits through July 7,
+    after which it is billed via usage credits. A new safety classifier blocks the reported
+    jailbreak in over 99% of cases; the occasional false positive on benign coding falls back
+    to Opus 4.8. Mythos 5 remains limited to approved U.S. organizations.
+    <a href="https://www.anthropic.com/news/redeploying-fable-5" target="_blank" rel="noopener">Read the redeployment</a>
+    &middot;
+    <a href="https://www.anthropic.com/news/fable-mythos-access" target="_blank" rel="noopener">the suspension</a>
+    &middot;
+    <a href="https://www.anthropic.com/news/claude-fable-5-mythos-5" target="_blank" rel="noopener">the original plan</a>.
     <div class="credit">
       Made with love by Engin Diri &middot;
       <a href="https://x.com/_ediri" target="_blank" rel="noopener">X (_ediri)</a> &middot;
@@ -262,12 +324,17 @@
   </footer>
 
 <script>
-  // Departure moment: start of June 23, 2026 in the viewer's local timezone.
-  const REMOVAL = new Date(2026, 5, 23, 0, 0, 0);
+  // The arc: grounded 12 Jun → export controls lifted 30 Jun → Fable 5 returns
+  // globally 01 Jul → included up to 50% of weekly limits through 07 Jul, then
+  // usage credits. Two anchors drive the board, both in the viewer's local time.
+  const RETURN = new Date(2026, 6, 1, 0, 0, 0);      // Fable 5 returns globally
+  const PROMO_END = new Date(2026, 6, 7, 0, 0, 0);   // usage-credit billing begins
   const DAY = 86400000;
+
   const elDays = document.getElementById('days');
   const elLabel = document.getElementById('days-label');
   const elStatus = document.getElementById('status');
+  const elAllowance = document.getElementById('allowance');
   const elClockWrap = document.getElementById('clock-wrap');
   const gDays = document.getElementById('g-days');
   const gH = document.getElementById('g-h');
@@ -275,6 +342,7 @@
   const gS = document.getElementById('g-s');
   const elTz = document.getElementById('tz');
   const elStrip = document.getElementById('strip-clock');
+  const elClockLabel = document.getElementById('clock-label');
 
   const pad = n => String(n).padStart(2, '0');
 
@@ -302,38 +370,72 @@
     });
   }
 
-  function render() {
-    const now = new Date();
-    const ms = REMOVAL - now;
+  function setStatus(text, cls) {
+    elStatus.textContent = text;
+    elStatus.classList.remove('status-go', 'status-ok');
+    elStatus.classList.add(cls);
+  }
 
-    elStrip.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-    if (ms <= 0) {
-      setCells(elDays, '0', 'cell');
-      elLabel.textContent = 'Fable 5 has departed';
-      elStatus.textContent = 'Departed';
-      elStatus.classList.remove('status-ok');
-      elClockWrap.style.display = 'none';
-      elTz.textContent = 'It now needs usage credits.';
-      return;
-    }
-
-    const days = Math.ceil(ms / DAY);
-    setCells(elDays, days, 'cell');
-    elLabel.textContent = days === 1 ? 'day until departure' : 'days until departure';
-
+  function setFlapClock(ms) {
+    const d = Math.floor(ms / DAY);
     const h = Math.floor((ms % DAY) / 3600000);
     const m = Math.floor((ms % 3600000) / 60000);
     const s = Math.floor((ms % 60000) / 1000);
-    const remDays = days - 1;
-    setCells(gDays, remDays + 'd', 'fcell');
+    setCells(gDays, d + 'd', 'fcell');
     setCells(gH, pad(h), 'fcell');
     setCells(gM, pad(m), 'fcell');
     setCells(gS, pad(s), 'fcell');
+  }
 
-    let tzName = '';
-    try { tzName = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
-    elTz.textContent = `All times local${tzName ? ' · ' + tzName : ''}`;
+  function tz() {
+    try { return Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) { return ''; }
+  }
+
+  function render() {
+    const now = new Date();
+    elStrip.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const zone = tz();
+
+    // ── Phase A: counting down to the global return on 01 Jul ──
+    if (now < RETURN) {
+      document.body.classList.add('is-cleared');
+      const ms = RETURN - now;
+      const days = Math.floor(ms / DAY);
+      setCells(elDays, days, 'cell');
+      elLabel.textContent = days === 1 ? 'day until Fable 5 returns' : 'days until Fable 5 returns';
+      setStatus('Cleared for return', 'status-go');
+      elAllowance.textContent = '50% of weekly limits · to 07 Jul';
+      elClockLabel.textContent = 'Returns in';
+      elClockWrap.style.display = 'flex';
+      setFlapClock(ms);
+      elTz.textContent = `Returns 01 Jul, 00:00 local${zone ? ' · ' + zone : ''}`;
+      return;
+    }
+
+    document.body.classList.remove('is-cleared');
+
+    // ── Phase B: back in service, free promo window ticking to 07 Jul ──
+    if (now < PROMO_END) {
+      const ms = PROMO_END - now;
+      const days = Math.floor(ms / DAY);
+      setCells(elDays, days, 'cell');
+      elLabel.textContent = days === 1 ? 'day of Fable 5 on the house' : 'days of Fable 5 on the house';
+      setStatus('In service', 'status-go');
+      elAllowance.textContent = 'Free up to 50% of weekly limits';
+      elClockLabel.textContent = 'Free ends in';
+      elClockWrap.style.display = 'flex';
+      setFlapClock(ms);
+      elTz.textContent = `Then billed via usage credits${zone ? ' · ' + zone : ''}`;
+      return;
+    }
+
+    // ── Phase C: promo over — Fable 5 is back, now on usage credits ──
+    setCells(elDays, '5', 'cell');
+    elLabel.textContent = 'Fable 5 · back in service';
+    setStatus('Usage credits', 'status-ok');
+    elAllowance.textContent = 'Billed via usage credits';
+    elClockWrap.style.display = 'none';
+    elTz.textContent = `Included promo ended 07 Jul · now on usage credits${zone ? ' · ' + zone : ''}`;
   }
 
   render();
